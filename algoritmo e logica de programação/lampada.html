@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <img 
+    onclick="quebra()" onmouseout="acende()" onmouseover="apaga()" id = "img1" src="https://i.stack.imgur.com/b983w.jpg">
+    
+    <script>
+    var img = document.getElementById('img1');
+    var quebrada = false;
+    function apaga(){
+        if( !quebrada)
+             img.src = "https://i.stack.imgur.com/ybxlO.jpg";
+    }
+    
+    function acende(){
+        if( !quebrada)
+          img.src = "https://i.stack.imgur.com/b983w.jpg"
+    }
+    
+    function quebra(){
+      img.src = "https://i.stack.imgur.com/MRjsF.jpg"
+      quebrada = true;
+    }  
+    </script>  
+</body>
+</html>

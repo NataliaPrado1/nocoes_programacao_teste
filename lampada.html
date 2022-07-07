@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <img 
+    onclick="quebra()" onmouseout="apaga()" onmouseover="acende()" id = "img1" src="https://i.stack.imgur.com/b983w.jpg">
+
+    <button onclick="conserta()">Conserta</button>
+    <button id="interruptor"
+     onclick="interruptor()">
+     Acender</button>
+
+    <script>
+    var img = document.getElementById('img1');
+    var quebrada = false;
+    var estado = "off";
+    var btn_interruptor = document.getElementById('interruptor');
+    function acende(){
+        if( !quebrada)
+             img.src = "https://i.stack.imgur.com/ybxlO.jpg";
+    }
+    
+    function apaga(){
+        if( !quebrada)
+          img.src = "https://i.stack.imgur.com/b983w.jpg"
+    }
+    
+    function quebra(){
+      img.src = "https://i.stack.imgur.com/MRjsF.jpg"
+      quebrada = true;
+    } 
+
+    function conserta(){
+        quebrada = false;
+        estado = "off"
+        img.src ="https://i.stack.imgur.com/b983w.jpg";
+    }
+
+    function interruptor(){
+        if(estado == "off"){
+        acende();
+        btn_interruptor.innerHTML = "Apagar";
+        estado = "on";
+    }else{
+        apaga();
+        btn_interruptor.innerHTML = "Acender";
+        estado= "off";
+
+    }
+    }
+
+
+    </script>  
+</body>
+</html>

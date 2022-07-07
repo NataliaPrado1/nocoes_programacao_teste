@@ -21,6 +21,43 @@
         <a href="cadastrarFuncionario.php" type="button" class="btn btn-success">
             Cadastrar Novo Funcionário
         </a>
+        <?php
+        function conexao(){
+            $nomeServidor = "localhost";
+            $database = "database";
+            $usuario = "root";
+            $senha = "";
+    
+            //criar a conexão
+            $conexao = mysqli_connect($nomeServidor, $usuario, $senha, $database);
+            //checagem de conexão
+            if(!$conexao){
+              die("Conexão Falhou: ".mysqli_connect_error());
+            }else{
+              // echo "Conexão com Sucesso!";
+            }
+            return $conexao;
+          }
+    
+          function selectFuncionarios(){
+            $conexao = conexao();
+            //executar o comando desejado
+            $comando = "SELECT * FROM FUNCIONARIOS";
+            $resultado_comando = mysqli_query($conexao, $comando) or die('Erro no envio do comando: '.$comando.' '.mysqli_error($conexao));
+            //exibir os dados da nossa tabela
+            return $resultado_comando;
+          }
+          function deletar($id){
+          $conexao = conexao();
+          $comando = "DELETE FROM FUNCIONARIOS WHERE ID = $id";
+          if(mysqli_query($conexao, $comando)){
+            echo "Registro do funcionário apagado com sucesso!";
+          }else{
+            echo "Erro, não foi possivel apagar o registro do funcionário.";
+          }
+          }
+          $funcionarios = selectFuncionarios();
+        ?>
         <table class="table table-dark table-hover">
             <thead>
                 <tr>
@@ -33,14 +70,29 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>...</td>
-                    <td>...</td>
-                    <td>...</td>
-                    <td>...</td>
-                    <td>...</td>
-                    <td>...</td>
-                </tr>
+                <?php
+                if(isset($_GET['id'])){
+                  deletar($_GET['id']);
+                }
+                while($indice = mysqli_fetch_array($funcionarios)){
+                    
+                    echo "<tr>";
+                    echo "<td>".$indice['id']."</td>";
+                    echo "<td>".$indice['nome']."</td>";
+                    echo "<td>".$indice['cargo']."</td>";
+                    echo "<td>".$indice['salario']."</td>";
+                    echo "<td>".$indice['descricao']."</td>";
+                    echo "<td>";
+                    echo "<form action= 'editarFuncionarios.php?id=$indice[id]'method= 'POST'>";
+                    echo "<button class='btn btn-info'>Editar</button>";
+                    echo "</form>"
+                    echo "<form action= 'funcionarios.php?id=$indice[id]' method= 'POST'>";
+                    echo "<button class='btn btn-danger'>Remover</button>";
+                    echo "</form>";
+                    echo "</td>";
+                    echo "</tr>";
+                }
+                ?>
             </tbody>
         </table>
     </center>
