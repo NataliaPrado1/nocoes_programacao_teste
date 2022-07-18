@@ -4,7 +4,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Bootstrap demo</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    
+    <!-- <script type='text/javascript' src='scripts/bootstrap.js'></script> -->
+    <link rel='stylesheet' type='text/css' href='css/bootstrap.css'>
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous"> -->
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous"> -->
   </head>
   <body>
     <nav class="navbar bg-dark">
@@ -48,14 +52,16 @@
             return $resultado_comando;
           }
           function deletar($id){
-          $conexao = conexao();
-          $comando = "DELETE FROM FUNCIONARIOS WHERE ID = $id";
-          if(mysqli_query($conexao, $comando)){
-            echo "Registro do funcionário apagado com sucesso!";
-          }else{
-            echo "Erro, não foi possivel apagar o registro do funcionário.";
+            $conexao = conexao();
+            $comando = "DELETE FROM FUNCIONARIOS WHERE ID = $id";
+            if(mysqli_query($conexao, $comando)){
+              echo "Registro do funcionário apagado com Sucesso!"; 
+            }else{
+              echo "Deu erro, funcionário não foi apagado.";
+            }
+
           }
-          }
+
           $funcionarios = selectFuncionarios();
         ?>
         <table class="table table-dark table-hover">
@@ -72,7 +78,7 @@
             <tbody>
                 <?php
                 if(isset($_GET['id'])){
-                  deletar($_GET['id']);
+                    deletar($_GET['id']);
                 }
                 while($indice = mysqli_fetch_array($funcionarios)){
                     
@@ -83,12 +89,12 @@
                     echo "<td>".$indice['salario']."</td>";
                     echo "<td>".$indice['descricao']."</td>";
                     echo "<td>";
-                    echo "<form action= 'editarFuncionarios.php?id=$indice[id]'method= 'POST'>";
-                    echo "<button class='btn btn-info'>Editar</button>";
-                    echo "</form>"
-                    echo "<form action= 'funcionarios.php?id=$indice[id]' method= 'POST'>";
-                    echo "<button class='btn btn-danger'>Remover</button>";
-                    echo "</form>";
+                        echo "<form action='editarFuncionarios.php?id=$indice[id]' method='POST'>";
+                            echo "<button class='btn btn-info'>Editar</button>";
+                        echo "</form>";
+                        echo "<form action='funcionarios.php?id=$indice[id]' method='POST'>";
+                            echo "<button type='submit' class='btn btn-danger'>Remover</button>";
+                        echo "</form>";
                     echo "</td>";
                     echo "</tr>";
                 }
